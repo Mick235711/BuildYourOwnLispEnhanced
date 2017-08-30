@@ -50,4 +50,4 @@ The binary is already compiled
 
 to compile yourself, enter in some `<dir>`:
 
-    cc -std=c99 -Wall -ledit -I../mpc <dir>.c mpc.c -o <dir>
+    cc -std=c99 -Wall -ledit -I../mpc <dir>.c ../mpc/mpc.c -o <dir>
