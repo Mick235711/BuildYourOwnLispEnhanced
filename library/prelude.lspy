@@ -1,0 +1,149 @@
+; Atoms
+(def {nil} {})
+(def {true} 1)
+(def {false} 0)
+
+; Function Definitions
+(def {fun} (\ {f b} {
+    def (head f) (\ (tail f) b)
+}))
+
+; Unpack List for Function
+(fun {unpack f l} {
+    eval (join (list f) l)
+})
+
+; Pack List for Function
+(fun {pack f & xs} {f xs})
+
+; Curried and Uncurried calling
+(def {curry} unpack)
+(def {uncurry} pack)
+
+; List Functions
+; First, Second and Third
+(fun {fst l} { eval (head l) })
+(fun {snd l} { eval (head (tail l)) })
+(fun {trd l} { eval (head (tail (tail l))) })
+
+; Length
+(fun {len l} {
+    if (== l nil)
+        {0}
+        {+ 1 (len (tail l))}
+})
+
+; Nth
+(fun {nth n l} {
+    if (== n 0)
+        {fst l}
+        {nth (- n 1) (tail l)}
+})
+
+; Last
+(fun {last l} {nth (- (len l) 1) l})
+
+; Take N
+(fun {take n l} {
+    if (== n 0)
+        {nil}
+        {join (head l) (take (- n 1) (tail l))}
+})
+
+; Drop N
+(fun {drop n l} {
+    if (== n 0)
+        {l}
+        {drop (- n 1) (tail l)}
+})
+
+; Split at N
+(fun {split n l} {list (take n l) (drop n l)})
+
+; Element of
+(fun {elem x l} {
+    if (== l nil)
+        {false}
+        {if (== x (fst l)) {true} {elem x (tail l)}}
+})
+
+; Apply Function to List
+(fun {map f l} {
+    if (== l nil)
+        {nil}
+        {join (list (f (fst l))) (map f (tail l))}
+})
+
+; Apply Fliter to List
+(fun {fliter f l} {
+    if (== l nil)
+        {nil}
+        {join (if (f (fst l)) {head l} {nil}) (fliter f (tail l))}
+})
+
+; Fold left
+(fun {foldl f z l} {
+    if (== l nil)
+        {z}
+        {foldl f (f z (fst l)) (tail l)}
+})
+
+; Fold right
+(fun {foldr f z l} {
+    if (== l nil)
+        {z}
+        {foldr f (f (fst l) z) (tail l)}
+})
+
+; Sum and Product
+(fun {sum l} {foldl + 0 l})
+(fun {product l} {foldl * 1 l})
+
+; Select
+(fun {select & cs} {
+    if (== cs nil)
+        {error "No Selection Found"}
+        {if (fst (fst cs)) {snd (fst cs)} {unpack select (tail cs)}}
+})
+
+; Default Case
+(def {otherwise} true)
+
+; Switch
+(fun {case x & cs} {
+    if (== cs nil)
+        {error "No Case Found"}
+        {if (== x (fst (fst cs))) {snd (fst cs)} {
+            unpack case (join (list x) (tail xs))}}
+})
+
+; Perform Several things in Sequence
+(fun {do & l} {
+    if (== l nil)
+        {nil}
+        {last l}
+})
+
+; Open new scope
+(fun {let b} {
+    ((\ {_} b) ())
+})
+
+; Logical Functions
+(fun {not x}   {- 1 x})
+(fun {or x y}  {+ x y})
+(fun {and x y} {* x y})
+
+; Miscellaneous Functions
+(fun {flip f a b} {f b a})
+(fun {ghost & xs} {eval xs})
+(fun {xomp f g x} {f (g x)})
+
+; Fibonacci
+(fun {fib n} {
+    select
+        { (== n 0) 0 }
+        { (== n 1) 1 }
+        { otherwise (+ (fib (- n 1)) (fib (- n 2))) }
+})
+
