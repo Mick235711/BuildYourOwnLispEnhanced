@@ -114,7 +114,7 @@
     if (== cs nil)
         {error "No Case Found"}
         {if (== x (fst (fst cs))) {snd (fst cs)} {
-            unpack case (join (list x) (tail xs))}}
+            unpack case (join (list x) (tail cs))}}
 })
 
 ; Perform Several things in Sequence
@@ -138,6 +138,9 @@
 (fun {flip f a b} {f b a})
 (fun {ghost & xs} {eval xs})
 (fun {xomp f g x} {f (g x)})
+
+; Math Functions
+(fun {mod a b} {- a (* (/ a b) b)})
 
 ; Fibonacci
 (fun {fib n} {

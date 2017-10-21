@@ -19,9 +19,9 @@ Lispy v1.0: `lispy1`, first stable version with string support
 In `library` dir, there is `prelude.lspy`
 
 ## Usage
-    $ ./double
-    Lispy Version 0.0.0.1.1
-    Press Ctrl+c to Exit
+    $ ./utils
+    Lispy Version 0.0.0.1.2
+    Press quit 0 to Exit
     
     lispy> + 2 3
     5
@@ -29,7 +29,7 @@ In `library` dir, there is `prelude.lspy`
 
 Just enter whatever you want!
 
-Press `Ctrl-C` to exit
+Type `quit 0` to exit
 
 ## Feature
 
