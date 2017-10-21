@@ -429,7 +429,7 @@ char* ltype_name(int t) {
     switch(t) {
         case LVAL_FUN: return "Function";
         case LVAL_NUM: return "Number";
-        case LVAL_DNUM: return "D-Number";
+        case LVAL_DNUM: return "Double";
         case LVAL_ERR: return "Error";
         case LVAL_SYM: return "Symbol";
         case LVAL_STR: return "String";
@@ -741,7 +741,7 @@ lval* builtin_join(lenv* e, lval* a) {
     return x;
 }
 
-/* Eval operators on an D-Number "lval" */
+/* Eval operators on an Double "lval" */
 lval* builtin_op_double(lenv* e, lval* a, char* op) {
     /* Pop the first element */
     lval* x = lval_pop(a, 0);
@@ -787,7 +787,7 @@ lval* builtin_op(lenv* e, lval* a, char* op) {
         }
     }
     
-    /* If all D-Number, call builtin_op_double */
+    /* If all Double, call builtin_op_double */
     if (double_t == LVAL_DNUM) {
         return builtin_op_double(e, a, op);
     }
@@ -921,7 +921,7 @@ lval* builtin_lambda(lenv* e, lval* a) {
     return lval_lambda(formals, body);
 }
 
-/* Compare two D-Number "lval"s */
+/* Compare two Double "lval"s */
 lval* builtin_ord_double(lenv* e, lval* a, char* op) {
     double r;
     if (strcmp(op, ">") == 0) {
@@ -1235,8 +1235,8 @@ lval* builtin_round(lenv* e, lval* a) {
 
 /* Type Builtins */
 lval* builtin_typeof(lenv* e, lval* a) {
-     LASSERT(a, a->count == 1,
-            "Function round passed incorrect number of arguments. "
+    LASSERT(a, a->count == 1,
+            "Function typeof passed incorrect number of arguments. "
             "Got %i, Expected 1.",
             a->count);
     
@@ -1245,7 +1245,16 @@ lval* builtin_typeof(lenv* e, lval* a) {
 
 /* Quit */
 lval* builtin_quit(lenv* e, lval* a) {
-    exit(0);
+    LASSERT(a, a->count == 1,
+            "Function quit passed incorrect number of arguments. "
+            "Got %i, Expected 1.",
+            a->count);
+    LASSERT(a, a->cell[0]->type == LVAL_NUM,
+            "Function quit passed incorrect type for argument 0. "
+            "Got %s, Expected %s.",
+            ltype_name(a->cell[0]->type), ltype_name(LVAL_NUM)); 
+    
+    exit(a->cell[0]->num);
 }
 
 /* add a builtin */
@@ -1290,7 +1299,7 @@ void lenv_add_builtins(lenv* e) {
     lenv_add_builtin(e, "error", builtin_error);
     lenv_add_builtin(e, "print", builtin_print);
     
-    /* D-Number Functions */
+    /* Double Functions */
     lenv_add_builtin(e, "inttofloat", builtin_inttofloat);
     lenv_add_builtin(e, "floattoint", builtin_floattoint);
     lenv_add_builtin(e, "ceil", builtin_ceil);
