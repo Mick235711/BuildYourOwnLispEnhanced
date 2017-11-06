@@ -9,7 +9,9 @@ I write the code by looking at [Build Your Own Lisp](http://buildyourownlisp.com
     ./<dir>
 
 ## Latest Version
-look at `double` dir
+look at `utils` dir
+
+Lispy v1.2: `utils`, add utility functions
 
 Lispy v1.1: `double`, add double number support
 
