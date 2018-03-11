@@ -9,7 +9,10 @@ I write the code by looking at [Build Your Own Lisp](http://buildyourownlisp.com
     ./<dir>
 
 ## Latest Version
-look at `utils` dir
+look at `double_enhanced` dir
+
+## Change Log
+Lispy v1.3: `double_enhanced`, make `.2` and `2.` possible
 
 Lispy v1.2: `utils`, add utility functions
 
@@ -22,7 +25,7 @@ In `library` dir, there is `prelude.lspy`
 
 ## Usage
     $ ./utils
-    Lispy Version 0.0.0.1.2
+    Lispy Version 0.0.0.1.3
     Press quit 0 to Exit
     
     lispy> + 2 3
@@ -42,7 +45,7 @@ load file (`lispy> load "<filename>"`)
 run file (just pass as command line argument)
 
 ## Compile yourself
-The binary is already compiled
+The binary is already compiled for Mac, x64 platform
 
 #### Dependencies
 `libedit`
