@@ -50,7 +50,7 @@ The binary is already compiled for Mac, x64 platform
 #### Dependencies
 `libedit`
 
-`mpc` http://github.com/orangeduck/mpc
+[`mpc`](http://github.com/orangeduck/mpc)
 (Already included in `mpc` dir)
 
 to compile yourself, enter in some `<dir>`:
