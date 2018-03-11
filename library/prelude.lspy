@@ -43,6 +43,9 @@
 ; Last
 (fun {last l} {nth (- (len l) 1) l})
 
+; Cons
+(fun {cons x xs} {join (list x) xs})
+
 ; Take N
 (fun {take n l} {
     if (== n 0)
